@@ -94,17 +94,11 @@ print(Prediction1)
 print("\nThe actual labels are:")
 print(TestLabels)
 
-
-
 ## confusion matrix
 from sklearn.metrics import confusion_matrix
-
-
 cnf_matrix1 = confusion_matrix(TestLabels, Prediction1)
 print("\nThe confusion matrix is:")
 print(cnf_matrix1)
-
-
 print(np.round(MyModelNB1.predict_proba(TestDF),2))
 
 import seaborn as sns
@@ -112,6 +106,7 @@ sns.heatmap(cnf_matrix1, square=True, annot=True, fmt='d')
 plt.xlabel('True Label')
 plt.ylabel('Predicted Label')
 
+print(sklearn.metrics.classification_report(TestLabels, Prediction1))
 
 
 #######################################################
@@ -140,9 +135,10 @@ sns.heatmap(SVM_matrix, square=True, annot=True, fmt='d')
 plt.xlabel('True Label')
 plt.ylabel('Predicted Label')
 
+print(sklearn.metrics.classification_report(TestLabels, SVM_Model.predict(TestDF)))
 
 #############################################
-###########  SVM ############################
+###########  Change C ############################
 #############################################
 
 
@@ -169,14 +165,14 @@ sns.heatmap(SVM_matrix, square=True, annot=True, fmt='d')
 plt.xlabel('True Label')
 plt.ylabel('Predicted Label')
 
-
+print(sklearn.metrics.classification_report(TestLabels, SVM_Model1.predict(TEST)))
 #############################################
-########### other kernels and change the cost
+########### rbf kernal
 #############################################
 
 #--------------
 ## RBF
-SVM_Model2=sklearn.svm.SVC(C=1, kernel='rbf', 
+SVM_Model2=sklearn.svm.SVC(C=10, kernel='rbf', 
                            verbose=True, gamma="auto")
 SVM_Model2.fit(TRAIN, TRAIN_Labels)
 
@@ -194,4 +190,4 @@ sns.heatmap(SVM_matrix, square=True, annot=True, fmt='d')
 plt.xlabel('True Label')
 plt.ylabel('Predicted Label')
 
-
+print(sklearn.metrics.classification_report(TestLabels, SVM_Model2.predict(TEST)))
